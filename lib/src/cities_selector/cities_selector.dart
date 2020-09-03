@@ -29,6 +29,7 @@ const defaultTopIndexBgColor = Color(0xfff3f4f5);
 class CitiesSelector extends StatefulWidget {
   final String locationCode;
   final String title;
+  final TextStyle centerTitleStyle;
   final Map<String, dynamic> provincesData;
   final Map<String, dynamic> citiesData;
   final List<HotCity> hotCities;
@@ -67,6 +68,8 @@ class CitiesSelector extends StatefulWidget {
 
   final Color itemFontColor;
 
+  final Color stickIndexBgColor;
+
   CitiesSelector({
     this.title = '城市选择器',
     this.locationCode,
@@ -89,6 +92,8 @@ class CitiesSelector extends StatefulWidget {
     this.itemSelectFontColor = Colors.red,
     this.scaffoldBgColor = Colors.white,
     this.itemBgColor = Colors.white,
+    this.stickIndexBgColor = defaultTopIndexBgColor,
+    this.centerTitleStyle,
   });
 
   @override
@@ -330,9 +335,12 @@ class _CitiesSelectorState extends State<CitiesSelector> {
 //    print("_initTargetCity.code ${_initTargetCity}");
     List<Widget> children = [];
     ThemeData theme = Theme.of(context);
-    children.add(ListView.builder(
+    children.add(ListView.separated(
         controller: _scrollController,
         itemCount: _cities.length,
+        separatorBuilder: (context, index) {
+          return Divider(height: 1,);
+        },
         itemBuilder: (context, index) {
           bool offstage = false;
           bool selected = _initTargetCity != null &&
@@ -349,7 +357,7 @@ class _CitiesSelectorState extends State<CitiesSelector> {
                   height: topTagHeight,
                   alignment: Alignment.centerLeft,
                   padding: const EdgeInsets.only(left: 15.0),
-                  color: widget.topIndexBgColor,
+                  color: widget.stickIndexBgColor,
                   child: Text(
                     _cities[index].letter,
                     softWrap: true,
@@ -422,8 +430,13 @@ class _CitiesSelectorState extends State<CitiesSelector> {
         backgroundColor: widget.scaffoldBgColor,
         resizeToAvoidBottomPadding: false,
         appBar: AppBar(
+            leading: IconButton(icon: Icon(Icons.close), onPressed: () {
+              Navigator.pop(context);
+            },),
+            centerTitle: true,
             title: Text(
               widget.title,
+              style: widget.centerTitleStyle,
             )),
         body: SafeArea(
           bottom: false,

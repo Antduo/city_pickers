@@ -171,6 +171,10 @@ class WorkInProgressState extends State<WorkInProgress> {
         locationCode: '110100',
         provincesData: !userSelfMeta ? CityPickers.metaProvinces : provincesData,
         citiesData: !userSelfMeta ? CityPickers.metaCities : citiesData,
+        scaffoldBgColor:Colors.blueGrey,
+        itemBgColor: Colors.blue,
+        stickIndexBgColor: Colors.grey,
+        centerTitleStyle: TextStyle(color: Colors.orange),
         hotCities: [
           HotCity(id: 0, name: '北京'),
           HotCity(id: 1, name: '沈阳'),

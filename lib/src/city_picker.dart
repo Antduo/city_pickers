@@ -146,6 +146,8 @@ class CityPickers {
     BaseStyle topStickStyle,
     Color scaffoldBgColor,
     Color itemBgColor,
+    Color stickIndexBgColor,
+    TextStyle centerTitleStyle,
   }) {
     BaseStyle _sideBarStyle = BaseStyle(
         fontSize: 14,
@@ -197,6 +199,7 @@ class CityPickers {
                 itemSelectFontColor: _cityItemStyle.activeColor,
                 scaffoldBgColor: scaffoldBgColor,
                 itemBgColor: itemBgColor,
+                centerTitleStyle: centerTitleStyle,
               )),
           transitionsBuilder:
               (_, Animation<double> animation, __, Widget child) =>
