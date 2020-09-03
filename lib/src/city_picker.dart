@@ -34,8 +34,7 @@ class CityPickers {
   /// static original province data for this plugin
   static Map<String, dynamic> metaProvinces = meta.provincesData;
 
-  static utils(
-      {Map<String, dynamic> provinceData, Map<String, dynamic> citiesData}) {
+  static utils({Map<String, dynamic> provinceData, Map<String, dynamic> citiesData}) {
     print("CityPickers.metaProvinces::: ${CityPickers.metaCities}");
     return CityPickerUtil(
       provincesData: provinceData ?? CityPickers.metaProvinces,
@@ -61,29 +60,30 @@ class CityPickers {
   ///
   /// @return Result see [Result]
   ///
-  static Future<Result> showCityPicker(
-      {@required BuildContext context,
-      showType = ShowType.pca,
-      double height = 400.0,
-      String locationCode = '110000',
-      ThemeData theme,
-      Map<String, dynamic> citiesData,
-      Map<String, dynamic> provincesData,
-      // CityPickerRoute params
-      bool barrierDismissible = true,
-      double barrierOpacity = 0.5,
-      ItemWidgetBuilder itemBuilder,
-      double itemExtent,
-      Widget cancelWidget,
-      Widget confirmWidget,
-      bool isSort = false}) {
+  static Future<Result> showCityPicker({@required BuildContext context,
+    showType = ShowType.pca,
+    double height = 400.0,
+    String locationCode = '110000',
+    ThemeData theme,
+    Map<String, dynamic> citiesData,
+    Map<String, dynamic> provincesData,
+    // CityPickerRoute params
+    bool barrierDismissible = true,
+    double barrierOpacity = 0.5,
+    ItemWidgetBuilder itemBuilder,
+    double itemExtent,
+    Widget cancelWidget,
+    Widget confirmWidget,
+    bool isSort = false}) {
     return Navigator.of(context, rootNavigator: true).push(
       new CityPickerRoute(
           theme: theme ?? Theme.of(context),
           canBarrierDismiss: barrierDismissible,
           barrierOpacity: barrierOpacity,
           barrierLabel:
-              MaterialLocalizations.of(context).modalBarrierDismissLabel,
+          MaterialLocalizations
+              .of(context)
+              .modalBarrierDismissLabel,
           child: BaseView(
               isSort: isSort,
               showType: showType,
@@ -112,7 +112,8 @@ class CityPickers {
         new PageRouteBuilder(
           settings: RouteSettings(name: 'fullPageCityPicker'),
           transitionDuration: const Duration(milliseconds: 250),
-          pageBuilder: (context, _, __) => new Theme(
+          pageBuilder: (context, _, __) =>
+          new Theme(
               data: theme ?? Theme.of(context),
               child: FullPage(
                 showType: showType,
@@ -122,12 +123,12 @@ class CityPickers {
               )),
           transitionsBuilder:
               (_, Animation<double> animation, __, Widget child) =>
-                  new SlideTransition(
-                      position: new Tween<Offset>(
-                        begin: Offset(0.0, 1.0),
-                        end: Offset(0.0, 0.0),
-                      ).animate(animation),
-                      child: child),
+          new SlideTransition(
+              position: new Tween<Offset>(
+                begin: Offset(0.0, 1.0),
+                end: Offset(0.0, 0.0),
+              ).animate(animation),
+              child: child),
         ));
   }
 
@@ -143,6 +144,8 @@ class CityPickers {
     BaseStyle sideBarStyle,
     BaseStyle cityItemStyle,
     BaseStyle topStickStyle,
+    Color scaffoldBgColor,
+    Color itemBgColor,
   }) {
     BaseStyle _sideBarStyle = BaseStyle(
         fontSize: 14,
@@ -171,34 +174,38 @@ class CityPickers {
         new PageRouteBuilder(
           settings: RouteSettings(name: 'CitiesPicker'),
           transitionDuration: const Duration(milliseconds: 250),
-          pageBuilder: (context, _, __) => new Theme(
+          pageBuilder: (context, _, __) =>
+          new Theme(
               data: theme ?? Theme.of(context),
               child: CitiesSelector(
-                  title: title,
-                  provincesData: provincesData,
-                  citiesData: citiesData,
-                  hotCities: hotCities,
-                  locationCode: locationCode,
-                  tagBarActiveColor: _sideBarStyle.backgroundActiveColor,
-                  tagBarFontActiveColor: _sideBarStyle.activeColor,
-                  tagBarBgColor: _sideBarStyle.backgroundColor,
-                  tagBarFontColor: _sideBarStyle.color,
-                  tagBarFontSize: _sideBarStyle.fontSize,
-                  topIndexFontSize: _topStickStyle.fontSize,
-                  topIndexHeight: _topStickStyle.height,
-                  topIndexFontColor: _topStickStyle.color,
-                  topIndexBgColor: _topStickStyle.backgroundColor,
-                  itemFontColor: _cityItemStyle.color,
-                  cityItemFontSize: _cityItemStyle.fontSize,
-                  itemSelectFontColor: _cityItemStyle.activeColor)),
+                title: title,
+                provincesData: provincesData,
+                citiesData: citiesData,
+                hotCities: hotCities,
+                locationCode: locationCode,
+                tagBarActiveColor: _sideBarStyle.backgroundActiveColor,
+                tagBarFontActiveColor: _sideBarStyle.activeColor,
+                tagBarBgColor: _sideBarStyle.backgroundColor,
+                tagBarFontColor: _sideBarStyle.color,
+                tagBarFontSize: _sideBarStyle.fontSize,
+                topIndexFontSize: _topStickStyle.fontSize,
+                topIndexHeight: _topStickStyle.height,
+                topIndexFontColor: _topStickStyle.color,
+                topIndexBgColor: _topStickStyle.backgroundColor,
+                itemFontColor: _cityItemStyle.color,
+                cityItemFontSize: _cityItemStyle.fontSize,
+                itemSelectFontColor: _cityItemStyle.activeColor,
+                scaffoldBgColor: scaffoldBgColor,
+                itemBgColor: itemBgColor,
+              )),
           transitionsBuilder:
               (_, Animation<double> animation, __, Widget child) =>
-                  new SlideTransition(
-                      position: new Tween<Offset>(
-                        begin: Offset(0.0, 1.0),
-                        end: Offset(0.0, 0.0),
-                      ).animate(animation),
-                      child: child),
+          new SlideTransition(
+              position: new Tween<Offset>(
+                begin: Offset(0.0, 1.0),
+                end: Offset(0.0, 0.0),
+              ).animate(animation),
+              child: child),
         ));
   }
 }

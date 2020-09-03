@@ -61,8 +61,9 @@ class CitiesSelector extends StatefulWidget {
 
   final Color itemSelectFontColor;
 
-//  暂时无用
-//  final Color itemSelectBgColor;
+
+  final Color scaffoldBgColor;
+  final Color itemBgColor;
 
   final Color itemFontColor;
 
@@ -86,6 +87,8 @@ class CitiesSelector extends StatefulWidget {
 //    this.itemSelectBgColor = Colors.white,
     this.itemFontColor = Colors.black,
     this.itemSelectFontColor = Colors.red,
+    this.scaffoldBgColor = Colors.white,
+    this.itemBgColor = Colors.white,
   });
 
   @override
@@ -191,7 +194,11 @@ class _CitiesSelectorState extends State<CitiesSelector> {
   List<CityOffsetRange> _initOffsetRangList() {
     if (_offsetTagRangeList.isEmpty) {
       double itemContainerHeight =
-          _key0.currentContext.findRenderObject().paintBounds.size.height;
+          _key0.currentContext
+              .findRenderObject()
+              .paintBounds
+              .size
+              .height;
 
       double offstageHeight = topTagHeight;
 
@@ -207,7 +214,7 @@ class _CitiesSelectorState extends State<CitiesSelector> {
   _dynamicChangeTopStagePosition(double scrollTopOffset) {
     // 应该显示标签的视觉窗口中的对象
     CityOffsetRange tempViewTarget =
-        _offsetTagRangeList.firstWhere((CityOffsetRange range) {
+    _offsetTagRangeList.firstWhere((CityOffsetRange range) {
       return scrollTopOffset > range.start && scrollTopOffset < range.end;
     }, orElse: () => null);
     if (tempViewTarget == null) {
@@ -219,7 +226,7 @@ class _CitiesSelectorState extends State<CitiesSelector> {
       return this.setState(() {
         _tagName = tempViewTarget.tag;
         _topOffstageTop =
-            -(scrollTopOffset + topTagHeight - tempViewTarget.end);
+        -(scrollTopOffset + topTagHeight - tempViewTarget.end);
       });
     }
 
@@ -251,7 +258,7 @@ class _CitiesSelectorState extends State<CitiesSelector> {
     }
     _changeTimer = new Timer(Duration(milliseconds: 30), () {
       CityOffsetRange cityOffsetRange = _offsetTagRangeList.firstWhere(
-          (CityOffsetRange range) => range.tag == alpha,
+              (CityOffsetRange range) => range.tag == alpha,
           orElse: null);
       if (cityOffsetRange != null) {
         _scrollController.jumpTo(cityOffsetRange.start);
@@ -353,12 +360,13 @@ class _CitiesSelectorState extends State<CitiesSelector> {
                 ),
               ),
               Container(
+                color: widget.itemBgColor,
                 alignment: Alignment.centerLeft,
                 key: index == 0 ? _key0 : null,
                 child: Center(
                   child: ListTileTheme(
                     selectedColor:
-                        widget.itemSelectFontColor ?? theme.primaryColor,
+                    widget.itemSelectFontColor ?? theme.primaryColor,
                     textColor: widget.itemFontColor ?? theme.accentColor,
                     child: ListTile(
                       selected: selected,
@@ -411,14 +419,14 @@ class _CitiesSelectorState extends State<CitiesSelector> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        backgroundColor: Colors.white,
+        backgroundColor: widget.scaffoldBgColor,
         resizeToAvoidBottomPadding: false,
         appBar: AppBar(
             title: Text(
-          widget.title,
-        )),
+              widget.title,
+            )),
         body: SafeArea(
-          bottom: true,
+          bottom: false,
           child: Column(
             children: <Widget>[
               Expanded(
