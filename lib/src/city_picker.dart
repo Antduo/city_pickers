@@ -200,6 +200,7 @@ class CityPickers {
                 scaffoldBgColor: scaffoldBgColor,
                 itemBgColor: itemBgColor,
                 centerTitleStyle: centerTitleStyle,
+                stickIndexBgColor: stickIndexBgColor,
               )),
           transitionsBuilder:
               (_, Animation<double> animation, __, Widget child) =>
