@@ -401,7 +401,7 @@ class _CitiesSelectorState extends State<CitiesSelector> {
             height: topTagHeight,
             alignment: Alignment.centerLeft,
             padding: const EdgeInsets.only(left: 15.0),
-            color: widget.topIndexBgColor,
+            color: widget.stickIndexBgColor,
             child: Text(
               _tagName ?? _tagList.first,
               softWrap: true,
